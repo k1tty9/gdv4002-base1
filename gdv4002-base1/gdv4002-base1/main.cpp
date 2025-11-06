@@ -18,6 +18,26 @@ int main(void) {
 	//
 	// Setup game scene objects here
 	//
+	GameObject2D* playerObject = getObject("player");
+	if(playerObject != nullptr) 
+	{
+	}
+	addObject("player", glm::vec2(1.0f, 1.0f), // adds the object and appoints it a position
+		45.0f * 3.14159 / 180.0f, // adds the orientation to the player object (same as glm::radians(45.0f))
+		glm::vec2(0.5f, 1.0f), // adjusts the sixe of the player object
+		"Resources\\Textures\\mcblock01.png", // adds a sprite to the player object
+		TextureProperties::NearestFilterTexture());
+
+	addObject("player2");
+	GameObject2D* player2Object = getObject("player2");
+	if (player2Object != nullptr)
+	{
+		
+	}
+	player2Object->position = glm::vec2(-1.5f, 1.0f);
+	player2Object->orientation = 30.0f * 3.14159f / 180.0f;
+	player2Object->size = glm::vec2(0.5f, 1.0f);
+
 	
 
 	// Enter main loop - this handles update and render calls
