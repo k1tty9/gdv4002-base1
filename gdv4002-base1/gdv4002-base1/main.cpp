@@ -1,9 +1,10 @@
 #include "Engine.h"
 
 // Function prototypes
-
+void myUpdate(GLFWwindow* window, double tDelta);
 
 int main(void) {
+
 
 	// Initialise the engine (create window, setup OpenGL backend)
 	int initResult = engineInit("GDV4002 - Applied Maths for Games", 1024, 1024);
@@ -14,29 +15,30 @@ int main(void) {
 		printf("Cannot setup game window!!!\n");
 		return initResult; // exit if setup failed
 	}
-
+	setUpdateFunction(myUpdate); // set the update function for the engine
 	//
 	// Setup game scene objects here
 	//
-	GameObject2D* playerObject = getObject("player");
-	if(playerObject != nullptr) 
-	{
-	}
-	addObject("player", glm::vec2(1.0f, 1.0f), // adds the object and appoints it a position
-		45.0f * 3.14159 / 180.0f, // adds the orientation to the player object (same as glm::radians(45.0f))
-		glm::vec2(0.5f, 1.0f), // adjusts the sixe of the player object
-		"Resources\\Textures\\mcblock01.png", // adds a sprite to the player object
-		TextureProperties::NearestFilterTexture());
+	//GameObject2D* playerObject = getObject("player");
+//	if(playerObject != nullptr) 
+	//{
+	//}
+	//addObject("player", glm::vec2(1.0f, 1.0f), // adds the object and appoints it a position
+	//	45.0f * 3.14159 / 180.0f, // adds the orientation to the player object (same as glm::radians(45.0f))
+	//	glm::vec2(0.5f, 1.0f), // adjusts the sixe of the player object
+	//	"Resources\\Textures\\mcblock01.png", // adds a sprite to the player object
+	//	TextureProperties::NearestFilterTexture());
+	
 
-	addObject("player2");
-	GameObject2D* player2Object = getObject("player2");
-	if (player2Object != nullptr)
-	{
+	//addObject("player2");
+	//GameObject2D* player2Object = getObject("player2");
+	//if (player2Object != nullptr)
+	//{
 		
-	}
-	player2Object->position = glm::vec2(-1.5f, 1.0f);
-	player2Object->orientation = 30.0f * 3.14159f / 180.0f;
-	player2Object->size = glm::vec2(0.5f, 1.0f);
+	//}
+	//player2Object->position = glm::vec2(-1.5f, 1.0f);
+	//player2Object->orientation = 30.0f * 3.14159f / 180.0f;
+	//player2Object->size = glm::vec2(0.5f, 1.0f);
 
 	
 
@@ -49,5 +51,10 @@ int main(void) {
 	// return success :)
 	return 0;
 }
+//void myUpdate(GLFWwindow* window, double tDelta) {
 
+//	float playerRotationSpeed = glm::radians(90.0f);
+//	GameObject2D* player = getObject("player");
+//	player -> orientation += playerRotationSpeed * tDelta;
+//}
 
