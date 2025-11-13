@@ -1,6 +1,10 @@
 #include "Engine.h"
 
 // Function prototypes
+float enemyPhase[3] = { 0.0f, 0.0f, 0.0f };
+float enemyPhaseVelocity[3] = { glm::radians(90.0f),
+							   glm::radians(90.0f),
+							   glm::radians(90.0f) };
 void myUpdate(GLFWwindow* window, double tDelta);
 
 int main(void) {
@@ -40,9 +44,21 @@ int main(void) {
 	//player2Object->orientation = 30.0f * 3.14159f / 180.0f;
 	//player2Object->size = glm::vec2(0.5f, 1.0f);
 
-	
+	addObject("player", glm::vec2(-1.5f, 0.0f), 0.0f, glm::vec2(0.5f, 
+	0.5f), "Resources\\Textures\\player1_ship.png");
 
-	// Enter main loop - this handles update and render calls
+	addObject("enemy", glm::vec2(0.0f, 0.0f), 0.0f, glm::vec2(0.75f, 
+	0.75f), "Resources\\Textures\\alien01.png");
+
+	addObject("enemy", glm::vec2(1.0f, 0.0f), 0.0f, glm::vec2(0.75f, 
+	0.75f), "Resources\\Textures\\alien01.png");
+
+	addObject("enemy", glm::vec2(2.0f, 0.0f), 0.0f, glm::vec2(0.75f, 
+	0.75f), "Resources\\Textures\\alien01.png");
+
+	listGameObjectKeys();
+	listObjectCounts();
+		;	// Enter main loop - this handles update and render calls
 	engineMainLoop();
 
 	// When we quit (close window for example), clean up engine resources
@@ -57,4 +73,10 @@ int main(void) {
 //	GameObject2D* player = getObject("player");
 //	player -> orientation += playerRotationSpeed * tDelta;
 //}
+void myUpdate(GLFWwindow* window, double tDelta) 
+{
+	GameObjectCollection enemies = getObjectCollection("enemy");
+	enemies.objectArray[0]->position.y = sinf(enemyPhase[0]);
+	enemyPhase[0] += enemyPhaseVelocity[0] * tDelta;
+}
 
