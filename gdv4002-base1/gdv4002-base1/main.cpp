@@ -76,7 +76,9 @@ int main(void) {
 void myUpdate(GLFWwindow* window, double tDelta) 
 {
 	GameObjectCollection enemies = getObjectCollection("enemy");
-	enemies.objectArray[0]->position.y = sinf(enemyPhase[0]);
-	enemyPhase[0] += enemyPhaseVelocity[0] * tDelta;
+	for (int i = 0; i < enemies.objectCount; i++) {
+		enemies.objectArray[i]->position.y = sinf(enemyPhase[i]);
+		enemyPhase[i] += enemyPhaseVelocity[i] * tDelta;
+	}
 }
 
