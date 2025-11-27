@@ -1,4 +1,6 @@
 #include "Engine.h"
+#include "keys.h"
+#include <bitset>
 
 // Function prototypes
 float enemyPhase[3] = { 0.0f, 0.0f, 0.0f };
@@ -7,8 +9,11 @@ float enemyPhaseVelocity[3] = { glm::radians(90.0f),
 							   glm::radians(90.0f) };
 void myUpdate(GLFWwindow* window, double tDelta);
 
+void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
+
 int main(void) {
 
+	std::bitset <5> keys{ 0x0 };
 
 	// Initialise the engine (create window, setup OpenGL backend)
 	int initResult = engineInit("GDV4002 - Applied Maths for Games", 1024, 1024);
@@ -20,6 +25,7 @@ int main(void) {
 		return initResult; // exit if setup failed
 	}
 	setUpdateFunction(myUpdate); // set the update function for the engine
+	setKeyboardHandler(myKeyboardHandler); // set the keyboard handler function for the engine
 	//
 	// Setup game scene objects here
 	//
@@ -79,6 +85,33 @@ void myUpdate(GLFWwindow* window, double tDelta)
 	for (int i = 0; i < enemies.objectCount; i++) {
 		enemies.objectArray[i]->position.y = sinf(enemyPhase[i]);
 		enemyPhase[i] += enemyPhaseVelocity[i] * tDelta;
+	}
+}
+void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (action == GLFW_PRESS) {
+		switch (key)
+		{
+		case GLFW_KEY_ESCAPE:
+			glfwSetWindowShouldClose(window, true);
+			break;
+
+		case GLFW_KEY_W:
+			printf("w pressed \n");
+			keys [ Key::W ] = true;
+			break;
+			
+		
+		}
+	}
+	else if (action == GLFW_RELEASE) {
+		switch (key)
+		{
+		case GLFW_KEY_W:
+			printf("w released \n");
+			keys [ Key::W ] = false;
+			break;
+		}
 	}
 }
 
