@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Keys.h"
 #include <bitset>
+#include "Engine.h"
 
 extern std::bitset<5> keys;
 extern glm::vec2 gravity;
@@ -40,6 +41,13 @@ void Player::update(double tDelta) {
 	//adds gravity to the forces being applied
 	F += gravity;
 
+	// add impulse force
+	if (position.y < -getViewplaneHeight() / 2.0f) {
+
+		F += glm::vec2(0.0f, 20.0f);
+	}
+	
+	
 	// 2. calculate acceleration.  If f=ma, a = f/m
 	glm::vec2 a = F * (1.0f / mass);
 
