@@ -3,6 +3,7 @@
 #include <bitset>
 
 extern std::bitset<5> keys;
+extern glm::vec2 gravity;
 
 Player::Player(glm::vec2 initPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, float mass) : GameObject2D(initPosition, initOrientation, initSize, initTextureID) {
 
@@ -36,6 +37,9 @@ void Player::update(double tDelta) {
 		F += glm::vec2(thrust, 0.0f);
 
 	}
+	//adds gravity to the forces being applied
+	F += gravity;
+
 	// 2. calculate acceleration.  If f=ma, a = f/m
 	glm::vec2 a = F * (1.0f / mass);
 
