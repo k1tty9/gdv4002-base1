@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "Keys.h" // setup in chapter 6
+#include "Player.h"
 
 // Function prototypes
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods); // setup in chapter 6
@@ -25,6 +26,12 @@ int main(void) {
 	}
 
 	// Setup game objects
+	GLuint playerTexture = loadTexture("Resources\\Textures\\player1_ship.png");
+
+	Player* mainPlayer = new Player(glm::vec2(-1.5f, 0.0f), 0.0f, glm::vec2(0.5f, 0.5f), playerTexture, 1.0f);
+
+	addObject("player", mainPlayer);
+
 
 
 	// Setup event handlers
@@ -54,6 +61,21 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 			printf("w pressed \n");
 			keys [ Key::W ] = true;
 			break;
+
+		case GLFW_KEY_S:
+			printf("s pressed \n");
+			keys [ Key::S ] = true;
+			break;
+
+		case GLFW_KEY_A:
+			printf("a pressed \n");
+			keys [ Key::A ] = true;
+			break;
+
+		case GLFW_KEY_D:
+			printf("d pressed \n");
+			keys [ Key::D ] = true;
+			break;
 			
 		
 		}
@@ -65,6 +87,23 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 			printf("w released \n");
 			keys [ Key::W ] = false;
 			break;
+
+		case GLFW_KEY_S:
+			printf("s released \n");
+			keys [ Key::S ] = false;
+			break;
+
+		case GLFW_KEY_A:
+			printf("a released \n");
+			keys [ Key::A ] = false;
+			break;
+
+		case GLFW_KEY_D:
+			printf("d released \n");
+			keys [ Key::D ] = false;
+			break;
+
+
 		}
 	}
 }
