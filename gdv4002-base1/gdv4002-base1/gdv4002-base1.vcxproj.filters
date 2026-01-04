@@ -78,7 +78,7 @@
       <Filter>My Classes</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>My Classes</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

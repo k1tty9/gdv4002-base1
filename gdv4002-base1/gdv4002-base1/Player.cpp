@@ -46,6 +46,15 @@ void Player::update(double tDelta) {
 
 		F += glm::vec2(0.0f, 20.0f);
 	}
+	if (position.y > getViewplaneHeight() / 2.0f) {
+		F += glm::vec2(0.0f, -20.0f);
+	}
+	if (position.x < -getViewplaneHeight() / 2.0f) {
+		F += glm::vec2(20.0f, 0.0f);
+	}
+	if (position.x > getViewplaneHeight() / 2.0f) {
+		F += glm::vec2(-20.0f, 0.0f);
+	}
 	
 	
 	// 2. calculate acceleration.  If f=ma, a = f/m
