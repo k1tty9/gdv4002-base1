@@ -2,17 +2,19 @@
 #include "Keys.h" // setup in chapter 6
 #include "Player.h"
 #include "Enemy.h"
+#include "Emitter.h"
 
 // Function prototypes
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods); // setup in chapter 6
 
 
-// Globals
+// Global vars
+glm::vec2 gravity = glm::vec2(0.0f, -0.005f);
+
 
 
 // Bit flags to track which keys are currently pressed - setup in chapter 6
 std::bitset<5> keys{ 0x0 };
-glm::vec2 gravity = glm::vec2(0.0f, -1.0f);
 
 
 int main(void) {
@@ -48,6 +50,13 @@ int main(void) {
 	addObject("enemy1", enemy1);
 	addObject("enemy2", enemy2);
 	addObject("enemy3", enemy3);
+
+	Emitter* emitter = new Emitter(
+		glm::vec2(0.0f, getViewplaneHeight() / 2.0f * 1.2f),
+		glm::vec2(getViewplaneWidth() / 2.0f, 0.0f),
+		0.05f);
+
+	addObject("emitter", emitter);
 
 
 	// Setup event handlers
