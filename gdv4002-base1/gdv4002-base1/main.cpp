@@ -24,6 +24,17 @@ int main(void) {
 
 	// Initialise the engine (create window, setup OpenGL backend)
 	int initResult = engineInit("GDV4002 - Applied Maths for Games", 512, 512, 5.0f);
+	// If the engine initialisation failed report error and exit
+	if (initResult != 0) {
+
+		printf("Cannot setup game window!!!\n");
+		return initResult; // exit if setup failed
+	}
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthFunc(GL_ALWAYS);
+
 
 	// If the engine initialisation failed report error and exit
 	if (initResult != 0) {
