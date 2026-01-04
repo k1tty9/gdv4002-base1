@@ -51,6 +51,9 @@
     <ClCompile Include="Snowflake.cpp">
       <Filter>My Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Emitter.cpp">
+      <Filter>My Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -77,9 +80,6 @@
     <ClInclude Include="keys.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>My Classes</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Emitter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

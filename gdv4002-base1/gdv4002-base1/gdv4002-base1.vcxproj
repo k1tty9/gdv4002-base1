@@ -134,6 +134,7 @@ copy "$(SolutionDir)Libs\FreeImage\Wrapper\FreeImagePlus\dist\x64\FreeImagePlus.
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Emitter.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
