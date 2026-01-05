@@ -4,9 +4,10 @@
 #include "Engine.h"
 #include <glm/gtc/constants.hpp>
 #include <cmath>
+#include "Bullet.h"
 
 extern std::bitset<5> keys;
-extern glm::vec2 gravity;
+extern glm::vec2 playerGravity;
 void Player::applyTorque(float torque) {
 	angularAcceleration = torque / momentOfInertia;
 }
@@ -44,7 +45,7 @@ void Player::update(double tDelta) {
 
 	}
 	//adds gravity to the forces being applied
-	F += gravity;
+	F += playerGravity;
 
 	// add impulse force
 	if (position.y < -getViewplaneHeight() / 2.0f) {
@@ -110,5 +111,21 @@ void Player::update(double tDelta) {
 		while (position.y > halfH)  position.y -= viewH;
 	}
 
+	fireTimer -= dt;
+	if (keys.test(Key::SPACE) && fireTimer <= 0.0f) {
+		fireTimer = fireCooldown;
+
+		glm::vec2 dir = glm::vec2(std::cos(orientation), std::sin(orientation));
+
+		float forwardOffset = size.y * 0.5f + 0.05f;
+		glm::vec2 spawnPos = position + dir * forwardOffset;
+
+		glm::vec2 spawnVel = dir * bulletSpeed + velocity;
+
+		GLuint bulletTex = loadTexture("Resources\\Textured\\Bullet.png");
+
+		Bullet* b = new Bullet(spawnPos, spawnVel, 3.0f, glm::vec2(0.05f, 0.05f), bulletTex);
+		addObject("bullet", b);
+	}
 
 }

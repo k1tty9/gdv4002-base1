@@ -2,11 +2,11 @@
 #include "Engine.h"
 
 
-extern glm::vec2 gravity;
-Snowflake::Snowflake(glm::vec2 initPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, float mass, float angleChangePerSecond) : GameObject2D(initPosition, initOrientation, initSize, initTextureID) {
+extern glm::vec2 snowflakeGravity;
+Snowflake::Snowflake(glm::vec2 initPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, float mass, float angleChangePerSecond, glm::vec2 initVelocity) : GameObject2D(initPosition, initOrientation, initSize, initTextureID) {
 
 	this->mass = mass;
-	velocity = glm::vec2(0.0f, 0.0f);
+	velocity = initVelocity;
 
 	this->angleChangePerSecond = angleChangePerSecond;
 }
@@ -15,34 +15,12 @@ void Snowflake::update(double tDelta) {
 	// 1. Physics bit for movement
 
 	// 1.1. Sum forces - only add gravity for now
-	glm::vec2 impulse = glm::vec2(0.0f, 0.0f);
+	glm::vec2 accel = snowflakeGravity;
 
-	// Add the same impulse behaviour the Player uses when crossing the viewplane bounds
-// (use width for x-tests, height for y-tests)
-	float halfViewH = getViewplaneHeight() / 2.0f;
-	float halfViewW = getViewplaneWidth() / 2.0f;
-
-	if (position.y < -halfViewH) {
-		impulse += glm::vec2(0.0f, 20.0f);
-	}
-	if (position.y > halfViewH) {
-		impulse += glm::vec2(0.0f, -20.0f);
-	}
-	if (position.x < -halfViewW) {
-		impulse += glm::vec2(20.0f, 0.0f);
-	}
-	if (position.x > halfViewW) {
-		impulse += glm::vec2(-20.0f, 0.0f);
-	}
-
-	const float fallSpeed = 1.0f; 
-	velocity.y = -fallSpeed;
-
-	velocity += impulse.x * (float)tDelta;
-
-	// 1.4. Update position
+	velocity += accel * (float)tDelta;
 	position += velocity * (float)tDelta;
 
+	// wrap anound screen rather than bounce
 	{
 		float viewW = getViewplaneWidth();
 		float viewH = getViewplaneHeight();

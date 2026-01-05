@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include <vector>
 
 // Engine.cpp ver 1.3
 
@@ -586,9 +587,14 @@ void defaultRenderScene()
 // Function called to update game objects in the scene
 void defaultUpdateScene(double tDelta) {
 
-	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++) {
+	std::vector<GameObject2D*> snapshot;
+	snapshot.reserve(gameObjects.size());
+	for (auto& kv : gameObjects) {
+		snapshot.push_back(kv.second);
+	}
 
-		iter->second->update(tDelta);
+	for (GameObject2D* obj : snapshot) {
+		if (obj) obj->update(tDelta);
 	}
 }
 

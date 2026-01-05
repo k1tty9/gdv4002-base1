@@ -9,7 +9,8 @@
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods); // setup in chapter 6
 
 // Global vars
-glm::vec2 gravity = glm::vec2(0.0f, -0.005f);
+glm::vec2 snowflakeGravity = glm::vec2(0.0f, -0.05f);
+glm::vec2 playerGravity = glm::vec2(0.0f, -0.0005f);
 
 
 
@@ -118,6 +119,10 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 			keys [ Key::D ] = true;
 			break;
 			
+		case GLFW_KEY_SPACE:
+			printf("space pressed \n");
+			keys[Key::SPACE] = true;
+			break;
 		
 		}
 	}
@@ -144,6 +149,10 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 			keys [ Key::D ] = false;
 			break;
 
+		case GLFW_KEY_SPACE:
+			printf("space released \n");
+			keys[Key::SPACE] = false;
+			break;
 
 		}
 	}

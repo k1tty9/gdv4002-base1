@@ -20,7 +20,7 @@ private:
 
 public:
 
-	Snowflake(glm::vec2 initPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, float mass, float angleChangePerSecond);
+	Snowflake(glm::vec2 initPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, float mass, float angleChangePerSecond, glm::vec2 initVelocity = glm::vec2(0.0f, 0.0f));
 
 	void update(double tDelta) override;
 

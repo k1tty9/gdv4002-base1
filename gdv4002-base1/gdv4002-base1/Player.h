@@ -15,6 +15,11 @@ private:
 	float angularDamping = 0.98f;
 	float maxAngularSpeed = glm::radians(1080.0f);
 
+	// firing controls
+	float fireCooldown = 0.2f;
+	float fireTimer = 0.0f;
+	float bulletSpeed = 6.0f;
+
 public:
 	Player(glm::vec2 initPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, float mass);
 
