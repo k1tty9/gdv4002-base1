@@ -7,7 +7,6 @@
 
 // Function prototypes
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods); // setup in chapter 6
-void deleteSnowlakes(GLFWwindow* window, double tDelta); // <-- add semicolon here
 
 // Global vars
 glm::vec2 gravity = glm::vec2(0.0f, -0.005f);
@@ -20,7 +19,6 @@ std::bitset<5> keys{ 0x0 };
 
 int main(void) {
 
-	setUpdateFunction(deleteSnowlakes, false);
 
 	// Initialise the engine (create window, setup OpenGL backend)
 	int initResult = engineInit("GDV4002 - Applied Maths for Games", 512, 512, 5.0f);
@@ -65,12 +63,15 @@ int main(void) {
 	addObject("enemy2", enemy2);
 	addObject("enemy3", enemy3);
 
+	float viewH = getViewplaneHeight();
+	float spawnMargin = viewH * 0.95f; // adjust if needed
 	Emitter* emitter = new Emitter(
-		glm::vec2(0.0f, getViewplaneHeight() / 2.0f * 1.2f),
+		glm::vec2(0.0f, viewH * 0.5f + spawnMargin),
 		glm::vec2(getViewplaneWidth() / 2.0f, 0.0f),
-		0.16f);
+		0.05f);
 
 	addObject("emitter", emitter);
+
 
 
 	// Setup event handlers
@@ -85,20 +86,6 @@ int main(void) {
 
 	// return success :)
 	return 0;
-}
-
-void deleteSnowlakes(GLFWwindow* window, double tDelta) {
-
-	GameObjectCollection snowflakes = getObjectCollection("snowflake");
-
-	for (int i = 0; i < snowflakes.objectCount; i++) {
-		GameObject2D* obj = snowflakes.objectArray[i];
-		if (!obj) continue; // guard against NULL slots
-		if (snowflakes.objectArray[i]->position.y < -(getViewplaneHeight() / 2.0f)) {
-
-			deleteObject(snowflakes.objectArray[i]);
-		}
-	}
 }
 
 

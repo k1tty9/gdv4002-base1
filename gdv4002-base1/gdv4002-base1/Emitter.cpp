@@ -11,25 +11,16 @@ Emitter::Emitter(glm::vec2 initPosition, glm::vec2 initSize, float emitTimeInter
 	this->emitTimeInterval = emitTimeInterval;
 	emitCounter = emitTimeInterval;
 
-	string key = string("snowflake");
+	particleNumber = 0;
 
-	if (particleNumber == 0) {
+	string path = "Resources\\Textures\\asteroid.png";
+		snowflakeTexture = loadTexture(path.c_str());
 
-		key += to_string(particleNumber);
-	}
-
-	particleNumber++;
-
-	for (int i = 0; i < 8; i++) {
-
-		string path = "Resources\\Textures\\Snow\\snowflake" + to_string(i + 1) + string(".png");
-		snowflakes[i] = loadTexture(path.c_str());
-
-		if (snowflakes[i] > 0)
+		if (snowflakeTexture > 0)
 			cout << "successfully loaded texture " << path << endl;
 		else
 			cout << "failed to load texture " << path << endl;
-	}
+	
 
 	// Obtain a seed for the random number engine
 	random_device rd;
@@ -37,7 +28,6 @@ Emitter::Emitter(glm::vec2 initPosition, glm::vec2 initSize, float emitTimeInter
 	// Standard mersenne_twister_engine seeded with rd() - mt19937 is a high-quality pseudo-random number generator
 	gen = mt19937(rd());
 
-	spriteDist = uniform_int_distribution<int>(0, 7);
 	normDist = uniform_real_distribution<float>(-1.0f, 1.0f);
 	massDist = uniform_real_distribution<float>(0.005f, 0.08f);
 	scaleDist = uniform_real_distribution<float>(0.1f, 0.5f);
@@ -59,6 +49,12 @@ void Emitter::update(double tDelta) {
 
 	while (emitCounter >= emitTimeInterval) {
 
+		int currentCount = getObjectCounts("snowflake");
+		if (currentCount >= (int)maxParticles) {
+
+			break;
+		}
+
 		// decrease emitCounter by emitTimeInterval - don't set to 0 as this would ignore the case where multiple particles are needed.
 		emitCounter -= emitTimeInterval;
 
@@ -66,12 +62,12 @@ void Emitter::update(double tDelta) {
 
 		float x = position.x + normDist(gen) * size.x;
 		float y = position.y + normDist(gen) * size.y;
-		float scale = scaleDist(gen);
-		float mass = massDist(gen);
+		float scale = 0.25f;
+		float mass = 1.0f;
 		float rotationSpeed = glm::radians(normDist(gen) * 45.0f);
-		int spriteIndex = spriteDist(gen);
 
-		Snowflake* s1 = new Snowflake(glm::vec2(x, y), 0.0f, glm::vec2(scale, scale), snowflakes[spriteIndex], mass, rotationSpeed);
+		string key = string("snowflake") + to_string(particleNumber++);
+		Snowflake* s1 = new Snowflake(glm::vec2(x, y), 0.0f, glm::vec2(scale, scale), snowflakeTexture, mass, rotationSpeed);
 		addObject(key.c_str(), s1);
 	}
 
